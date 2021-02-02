@@ -111,6 +111,8 @@ import base64
   
 # Function to encode 
 alphabets = "abcdefghijklmnopqrstuvwxyz"
+# Vigenere Cipher Standard (26 huruf alfabet)
+
 def encode1(key, text):
     enc = ""
     keyindex = []
@@ -131,6 +133,10 @@ def encode1(key, text):
         else:
             continue
     return enc
+
+
+# Full Vigenere Cipher
+
 
 # Auto-Key Vigenere
 def encode3(key, text):
@@ -158,8 +164,7 @@ def encode3(key, text):
     return enc
     
 
-
-# Full Vigenere
+# Extended Vigenere Cipher *** belum bener
 def encode4(key, text): 
     enc = [] 
       
@@ -172,8 +177,82 @@ def encode4(key, text):
           
     return base64.urlsafe_b64encode("".join(enc).encode()).decode() 
 
-# Playfair
+# Playfair Cipher
 
+def bigram(text):           # membuat plaintext jadi bigram/pasangan huruf
+    t = []
+    for i in text:
+        t.append(i)
+    
+    for i in range(len(t)): # mengeliminasi spasi
+        if " " in t:
+            t.remove(" ")
+    
+    j = 0
+    for i in range(len(t)//2):   # kalau ada huruf yang sama
+        if t[i] == t[i+1]:
+            t.insert(i+1,'x')
+        i = i+2
+    
+    if len(t)%2 == 1:   # kalau jumlah huruf di plaintext ganjil
+        t.append("x")
+    
+    j = 0
+    newtext = []
+    for x in range(1, len(t)//2+1):
+        newtext.append(t[j:j+2])
+        j = j+2
+    return newtext
+
+def cleaninput(text):
+    text = ''.join([c.upper() for c in text if c in string.ascii_letters]) # membuat karakter menjadi kapital
+    clean = ""
+
+    if len(text) < 2:
+        return text
+    for i in range(len(text)-1):
+        clean += text[i]
+        if text[i] == text[i+1]:        # jika ada karakter yang sama
+            clean += 'X'
+    clean += text[-1]
+
+    if len(clean) & 1:      # jika jumlah karakter text ganjil
+        clean += 'X'
+    return clean
+
+def generate_key(key):
+    withoutj = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
+    table = []
+
+    for i in key.upper():   
+        if i not in table and i in withoutj:    # masukin karakter selain j dari key
+            table.append(i)
+    for i in withoutj:
+        if i not in table:           # masukin karakter yang tersisa
+            table.append(i)
+    
+    return table
+
+
+def encode5(key,text):
+    table = generate_key(key)
+    plaintext = cleaninput(text)
+    enc = ""
+
+    for a,b in bigram(plaintext):
+        row1,col1 = divmod(table.index(a), 5)
+        row2,col2 = divmod(table.index(b), 5)
+
+        if row1 == row2:                        # kalau berada di baris yang sama
+            enc += table[row1*5+(col1+1)%5]
+            enc += table[row2*5+(col2+1)%5]
+        elif col1 == col2:                         # kalau berada di kolom yang sama
+            enc += table[(col1+((row1+1)%5)*5)]
+            enc += table[(col2+((row2+1)%5)*5)]
+        else:
+            enc += table[row1*5+col2]
+            enc += table[row2*5+col1]
+    return enc
  
 
   
@@ -206,13 +285,9 @@ def Ref():
             Result.set(encode3(k,text))
         if (c == 'd'):
             Result.set(encode4(k, text)) 
-       # if (c == 'e'):
-            #Result.set(encode5(text,text))
-        else: 
-            Result.set(decode4(k, text)) 
-    else: #decode
-        if (c == 'd'):
-            Result.set(decode4(k, text))
+        if (c == 'e'):
+            Result.set(encode5(k,text))
+        #else:
     
 
 
