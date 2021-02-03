@@ -73,4 +73,21 @@ def encode5(key,text):
             enc += table[row1*5+col2]
             enc += table[row2*5+col1]
     return enc
- 
+
+def decode5 (key, text):
+     table = generate_key(key)
+     hasil = ""
+
+     for a,b in bigram (text):
+        row1, col1 = divmod(table.index(a), 5)
+        row2, col2 = divmod(table.index(b), 5)
+
+        if row1 == row2:
+            hasil += table[row1*5+(col1-1)%5]
+            hasil += table[row2*5+(col2-1)%5]
+        elif col1 == col2:
+            hasil += table[((row1-1)%5)*5+col1]
+            hasil += table[((row2-1)%5)*5+col2]
+        else:
+            hasil += table[row1*5+col2]
+            hasil += table[row2*5+col1]

@@ -157,10 +157,12 @@ def Ref():
     if (m == 'e'): #encode
         if (c == 'a'):
             Result.set(encode1(k,text)) # standard vigenere
+        #if (c == 'b'):
+            #Result.set(encode2(k,text)) # full key
         if (c == 'c'):
             Result.set(encode3(k,text)) # autokey vigenere
-        if (c == 'd'):
-            Result.set(encode4(k, text)) # extended vigenere
+#        if (c == 'd'):
+ #           Result.set(encode4(k, text)) # extended vigenere
         if (c == 'e'):
             Result.set(encode5(k,text)) # playfair
         #else:
