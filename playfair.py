@@ -7,7 +7,8 @@ def bigram(text):           # membuat plaintext jadi bigram/pasangan huruf
     for i in range(len(t)): # mengeliminasi spasi
         if " " in t:
             t.remove(" ")
-    
+
+
     j = 0
     for i in range(len(t)//2):   # kalau ada huruf yang sama
         if t[i] == t[i+1]:
@@ -36,6 +37,7 @@ def cleaninput(text):
             clean += 'X'
     clean += text[-1]
 
+
     if len(clean) & 1:      # jika jumlah karakter text ganjil
         clean += 'X'
     return clean
@@ -53,10 +55,20 @@ def generate_key(key):
     
     return table
 
+def changeJ(text):
+    t = []
+    for i in text.upper():
+        if i == "J":
+            t.append("I")
+        else:
+            t.append(i)
+    return t
+
+
 
 def encPlayfair(key,text):
     table = generate_key(key)
-    plaintext = cleaninput(text)
+    plaintext = changeJ(cleaninput(text))
     enc = ""
 
     for a,b in bigram(plaintext):
@@ -99,3 +111,4 @@ def playfairVigenere(mode, text, key):
     else: # Decryption
         cipher = decPlayfair(key,text)
     return cipher
+
