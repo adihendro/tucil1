@@ -1,4 +1,4 @@
-# Standard and Auto-Key Vigenere Cipher
+# Standard Vigenere Cipher
 
 ORDINAL_A = ord('A')
 
@@ -33,6 +33,18 @@ def decVigenere(cipher, key):
         text.append(chr((ord(cipher[i]) - ord(key[i])) %26 + ORDINAL_A))
     return ''.join(text)
 
+def mainVigenere(mode, text, key):
+    clearedText = clearText(text)
+    clearedKey = clearText(key)
+    if(mode=='1'): # Encryption
+        cipher = encVigenere(clearedText, extendKey(clearedText, clearedKey))
+    else: # Decryption
+        cipher = decVigenere(text, extendKey(clearedText, clearedKey))
+    return cipher
+
+
+
+# Auto-Key Vigenere Cipher
 
 def decAutoVigenere(cipher,key):
     text = []
@@ -48,10 +60,6 @@ def decAutoVigenere(cipher,key):
 
 '''
 
-# Input text
-text = input().upper() 
-# Input key
-key = input().upper()
 
 clearedText = clearText(text)
 
