@@ -30,12 +30,17 @@ def compute():
     # elif(encType==5): # Playfair Cipher
     
 
+file_content = ''
+
 def openFile(): 
     f = askopenfile(mode ='rb') 
     if f is not None: 
         file_content = f.read() 
 
-file_content = ''
+# Copy function
+def copy():
+    window.clipboard_clear()
+    window.clipboard_append(lbl_result_text["text"])
 
 
 window = Tk()
@@ -87,12 +92,12 @@ rad_type.grid(row=8, column=1, padx=5, pady=5, sticky='w')
 rad_type = Radiobutton(master=frm_form,text='Playfair Cipher', variable = var2, value=5)
 rad_type.grid(row=9, column=1, padx=5, pady=5, sticky='w')
 
-lbl_type = Label(master=frm_form, text='Choose text option:')
-lbl_type.grid(row=10, column=0, padx=5, pady=5, sticky="w")
-rad_type = Radiobutton(master=frm_form,text='Without space', variable = var3, value=1)
-rad_type.grid(row=10, column=1, padx=5, pady=5, sticky='w')
-rad_type = Radiobutton(master=frm_form,text='Separated every 5 letters', variable = var3, value=2)
-rad_type.grid(row=11, column=1, padx=5, pady=5, sticky='w')
+lbl_option = Label(master=frm_form, text='Choose text option:')
+lbl_option.grid(row=10, column=0, padx=5, pady=5, sticky="w")
+rad_option = Radiobutton(master=frm_form,text='Without space', variable = var3, value=1)
+rad_option.grid(row=10, column=1, padx=5, pady=5, sticky='w')
+rad_option = Radiobutton(master=frm_form,text='Separated every 5 letters', variable = var3, value=2)
+rad_option.grid(row=11, column=1, padx=5, pady=5, sticky='w')
 
 btn_compute = Button(master=frm_form, text='Go!', width=10, command=compute)
 btn_compute.grid(row=13, column=1, padx=5, pady=5, sticky='w')
@@ -102,6 +107,8 @@ lbl_result_text = Label(master=frm_form, text='Click "Go!" to see magic')
 lbl_result.grid(row=14, column=0, padx=5, pady=5, sticky="w")
 lbl_result_text.grid(row=14, column=1, padx=5, pady=5, sticky="w")
 
+btn_copy = Button(master=frm_form, text='Copy result', width=10, command=copy)
+btn_copy.grid(row=15, column=1, padx=5, pady=5, sticky='w')
 
 # Keeps window alive 
 window.mainloop()
