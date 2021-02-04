@@ -3,15 +3,20 @@
 from vigenere import *
 
 from tkinter import *
+from tkinter import messagebox
 from tkinter.filedialog import askopenfile
 
 def compute():
+    # Check if key empty
+    if(ent_key.get()==''):
+        messagebox.showerror('Error', 'Enter key!')
+        return
+
+    # Get text and key
     text = ent_text.get().upper()
     key = ent_key.get().upper()
-
     # Get mode
     mode = var1.get()
-    
     # Get encryption type
     encType = var2.get()
     if(encType=='1'): # Standard Vigenere Cipher
