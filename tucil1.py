@@ -3,10 +3,11 @@ from tkinter import *
 import random 
 import string
 import itertools
+import tkinter
 
 # import cipher
-from playfair import encode5
-from autokey_standardvigenere import encode1, encode3
+from playfair import encPlayfair, decPlayfair
+from vigenere import *
 from tkinter.filedialog import asksaveasfile 
   
 # creating root object 
@@ -145,28 +146,52 @@ def decode4(key, enc):
         dec.append(dec_c) 
     return "".join(dec) 
   
-  
+
+def addspace(a):
+    return ' '.join([a[i:i + 5] for i in range(0, len(a), 5)])
+
 def Ref(): 
-    print("Message = ", (Msg.get())) 
+    print("Message = ", (Msg)) 
   
-    text = Msg.get() 
-    k = key.get() 
+    text = Msg.get()
+    k = key.get()
     m = mode.get() 
     c = cip.get()
+    hasil = ''
   
     if (m == 'e'): #encode
         if (c == 'a'):
-            Result.set(encode1(k,text)) # standard vigenere
+            #Result.set(addspace(encVigenere(text, (extendKey(clearText(text), clearText(key)))))) # standard vigenere
+            hasil = encVigenere(clearText(text), extendKey(clearText(text), clearText(k)))
+            Result.set(addspace(hasil))
         #if (c == 'b'):
             #Result.set(encode2(k,text)) # full key
         if (c == 'c'):
-            Result.set(encode3(k,text)) # autokey vigenere
-#        if (c == 'd'):
- #           Result.set(encode4(k, text)) # extended vigenere
+            Result.set(addspace(encVigenere(k,text))) # autokey vigenere
+        if (c == 'd'):
+            Result.set(addspace(encExtendedVigenere(text, extendKey(text, k)))) # extended vigenere
         if (c == 'e'):
-            Result.set(encode5(k,text)) # playfair
+            Result.set(addspace(encPlayfair(k,text))) # playfair
+    
+    elif (m == 'd'):
+        if (c == 'a'):
+            Result.set(addspace(decVigenere(text, (extendKey(clearText(text), clearText(k))))))
+       # if (c == 'b'):
+        
+        #if (c == 'c'):
+
+        if (c == 'd'):
+            Result.set(addspace(decExtendedVigenere(text, (extendKey(text, k))))) 
+        if (c == 'e'):
+            Result.set(addspace(decPlayfair(k,text)))
         #else:
     
+def write_File (text_File):
+    file = open("resultsave.txt", "a")
+    user_Input = text_File.get()
+    file.write(user_Input)
+    file.close()
+
 
 
 # Show message button 
@@ -191,7 +216,7 @@ btnExit = Button(f1, padx = 16, pady = 8, bd = 16,
 btnSave = Button(f1, padx = 16, pady = 8, bd = 16,  
                  fg = "black", font = ('arial', 16, 'bold'), 
                       width = 10, text = "Save", bg = "silver", 
-                  command = lambda : save()).grid(row = 7, column = 4) 
+                  command = lambda : write_File(Result)).grid(row = 7, column = 4) 
   
 # keeps window alive 
 root.mainloop() 
