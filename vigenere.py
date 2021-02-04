@@ -27,6 +27,12 @@ def encVigenere(text, key):
         cipher.append(chr((ord(text[i]) + ord(key[i])) %26 + ORDINAL_A))
     return ''.join(cipher)
 
+'''
+clearedText = clearText(text)
+cipher = encVigenere(clearText(text), autoKey(key))
+
+'''
+
 def decVigenere(cipher, key):
     text = []
     for i in range (len(cipher)):
