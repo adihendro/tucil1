@@ -66,8 +66,6 @@ def decAutoVigenere(cipher,key):
 
 
 '''
-
-
 clearedText = clearText(text)
 
 # print(clearedText)
@@ -79,6 +77,7 @@ print(cipher)
 #print(decVigenere(cipher, key))
 
 '''
+
 # Extended Vigenere Cipher
 
 def encExtendedVigenere(text, key):
@@ -93,11 +92,12 @@ def decExtendedVigenere(cipher, key):
         text.append((cipher[i] - ord(str(key[i]))) %256)
     return text
 
-
+# Open file in read only and binary mode
 def openFile(file):
     with open(file, 'rb') as f:
         return f.read()
 
+# Write file in write and binary mode
 def writeFile(text, filename):
     with open(filename, 'wb') as f:
         f.write(text)
@@ -109,10 +109,10 @@ def extVigenere(mode,text,key):
         writeFile(bytearray(cipher), 'cipheredtext.txt')
     else: # Decryption
         cipher = decExtendedVigenere(text, extendKey(text, clearedKey))
-        writeFile(bytearray(text), 'finished.docx')
+        writeFile(bytearray(text), 'finished.txt')
     return cipher
 
-# Open file in read only and binary mode
+
 '''
 file = input()
 text = openFile(file)
