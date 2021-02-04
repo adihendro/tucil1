@@ -31,16 +31,16 @@ def decVigenere(cipher, key):
 # Input text
 text = input().upper() 
 # Input key
-key = input().upper()
+key = input()
 
 clearedText = clearText(text)
-clearedKey = clearText(key)
-print(clearedText)
-print(extendKey(clearedText, clearedKey))
 
-cipher = encVigenere(clearedText, extendKey(clearedText, clearedKey))
+# print(clearedText)
+print(extendKey(clearedText, key))
+
+cipher = encVigenere(clearedText, extendKey(clearedText, key))
 print(cipher)
-print(decVigenere(cipher, extendKey(clearedText, clearedKey)))
+print(decVigenere(cipher, extendKey(clearedText, key)))
 '''
 
 
@@ -58,7 +58,6 @@ def decExtendedVigenere(cipher, key):
         text.append((cipher[i] - ord(str(key[i]))) %256)
     return text
 
-
 def openFile(file):
     with open(file, 'rb') as f:
         return f.read()
@@ -70,13 +69,12 @@ def writeFile(text, filename):
 # Open file in read only and binary mode
 file = input()
 text = openFile(file)
+# Input key
+key = input()
 
-key = input().upper()
-clearedKey = clearText(key)
-
-cipher = encExtendedVigenere(text, extendKey(text, clearedKey))
+cipher = encExtendedVigenere(text, extendKey(text, key))
 writeFile(bytearray(cipher), 'ciphered.txt')
 
 cipher = openFile('ciphered.txt')
-text = decExtendedVigenere(cipher, extendKey(text, clearedKey))
+text = decExtendedVigenere(cipher, extendKey(text, key))
 writeFile(bytearray(text), 'finished.docx')
