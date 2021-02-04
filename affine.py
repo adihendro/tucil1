@@ -2,6 +2,7 @@
 
 ORDINAL_A = ord('A')
 N = 26
+M = 7
 
 def clearText(text):
     clearedText = []
@@ -17,14 +18,14 @@ def invers(M):
         Mi = (M * i) %N
     return i
 
-def encAffine(text, m, b):
+def encAffine(text, b):
     cipher = []
     for i in range (len(text)):
-        cipher.append(chr((m * (ord(text[i]) - ORDINAL_A) + b) %N + ORDINAL_A))
+        cipher.append(chr((M * (ord(text[i]) - ORDINAL_A) + b) %N + ORDINAL_A))
     return ''.join(cipher)
 
-def decAffine(cipher, m, b):
-    Mi = invers(m)
+def decAffine(cipher, b):
+    Mi = invers(M)
     text = []
     for i in range (len(cipher)):
         text.append(chr((Mi * (ord(cipher[i]) - ORDINAL_A - b)) %N + ORDINAL_A))
@@ -34,7 +35,7 @@ def decAffine(cipher, m, b):
 '''
 # Input text
 text = input().upper() 
-# Input bm key
+# Input m key
 m = int(input())
 # Input b key
 b = int(input())
