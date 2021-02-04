@@ -21,15 +21,23 @@ def invers(M):
 def encAffine(text, b):
     cipher = []
     for i in range (len(text)):
-        cipher.append(chr((M * (ord(text[i]) - ORDINAL_A) + b) %N + ORDINAL_A))
+        cipher.append(chr((M * (ord(text[i]) - ORDINAL_A) + int(b)) %N + ORDINAL_A))
     return ''.join(cipher)
 
 def decAffine(cipher, b):
     Mi = invers(M)
     text = []
     for i in range (len(cipher)):
-        text.append(chr((Mi * (ord(cipher[i]) - ORDINAL_A - b)) %N + ORDINAL_A))
+        text.append(chr((Mi * (ord(cipher[i]) - ORDINAL_A - int(b))) %N + ORDINAL_A))
     return ''.join(text)
+
+def affine(mode, text, b):
+    clearedText = clearText(text)
+    if(mode=='1'): # Encryption
+        cipher = encAffine(clearedText, b)
+    else: # Decryption
+        cipher = decAffine(clearedText, b)
+    return cipher
 
 
 '''
