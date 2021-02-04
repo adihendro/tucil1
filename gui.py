@@ -3,15 +3,23 @@
 from vigenere import *
 
 from tkinter import *
+from tkinter import messagebox
 from tkinter.filedialog import askopenfile
 
 def compute():
-    text = ent_text.get().upper()
-    key = ent_key.get().upper()
+    # Check if key empty
+    if(ent_key.get()==''):
+        messagebox.showerror('Error', 'Enter key!')
+        return
 
+    # Get text and key
+    if(file_content == ''):
+        text = ent_text.get().upper()
+    else:
+        text = file_content
+    key = ent_key.get().upper()
     # Get mode
     mode = var1.get()
-    
     # Get encryption type
     encType = var2.get()
     if(encType=='1'): # Standard Vigenere Cipher
@@ -22,11 +30,26 @@ def compute():
     # elif(encType==5): # Playfair Cipher
     
 
+file_content = ''
+
 def openFile(): 
-    file = askopenfile(mode ='rb') 
-    if file is not None: 
-        content = file.read() 
-        print(content)
+    f = askopenfile(mode ='rb') 
+    if f is not None: 
+        file_content = f.read() 
+
+# Clear function
+def clear():
+    ent_text.delete(0,END)
+    ent_key.delete(0,END)
+
+# Copy function
+def copy():
+    window.clipboard_clear()
+    window.clipboard_append(lbl_result_text["text"])
+
+# Exit function 
+def qExit(): 
+    window.destroy() 
 
 
 window = Tk()
@@ -39,25 +62,27 @@ frm_form = Frame(relief=RIDGE, borderwidth=3)
 frm_form.pack()
 
 lbl_text = Label(master=frm_form, text='Enter message:')
-ent_text = Entry(master=frm_form, width=40)
+ent_text = Entry(master=frm_form, width=30)
 lbl_text.grid(row=0, column=0, padx=5, pady=5, sticky="w")
 ent_text.grid(row=0, column=1, padx=5, pady=5)
 
 lbl_key = Label(master=frm_form, text='Enter key:')
-ent_key = Entry(master=frm_form, width=40)
+ent_key = Entry(master=frm_form, width=30)
 lbl_key.grid(row=1, column=0, padx=5, pady=5, sticky='w')
 ent_key.grid(row=1, column=1, padx=5, pady=5)
 
-btn_open = Button(master=frm_form, text='Open file', width=10, command=openFile)
+btn_open = Button(master=frm_form, text='Open file', width=8, command=openFile)
 btn_open.grid(row=2, column=1, padx=5, pady=5, sticky='w')
+
+btn_clear = Button(master=frm_form, text='Clear', width=5, command=clear)
+btn_clear.grid(row=2, column=1, padx=5, pady=5)
 
 var1 = StringVar()
 var2 = StringVar()
 var3 = StringVar()
-var1.set(0)
-var2.set(0)
-var3.set(0)
-
+var1.set(1)
+var2.set(1)
+var3.set(1)
 
 lbl_mode = Label(master=frm_form, text='Choose mode:')
 lbl_mode.grid(row=3, column=0, padx=5, pady=5, sticky="w")
@@ -79,21 +104,26 @@ rad_type.grid(row=8, column=1, padx=5, pady=5, sticky='w')
 rad_type = Radiobutton(master=frm_form,text='Playfair Cipher', variable = var2, value=5)
 rad_type.grid(row=9, column=1, padx=5, pady=5, sticky='w')
 
-lbl_type = Label(master=frm_form, text='Choose text option:')
-lbl_type.grid(row=10, column=0, padx=5, pady=5, sticky="w")
-rad_type = Radiobutton(master=frm_form,text='Without space', variable = var3, value=1)
-rad_type.grid(row=10, column=1, padx=5, pady=5, sticky='w')
-rad_type = Radiobutton(master=frm_form,text='Separated every 5 letters', variable = var3, value=2)
-rad_type.grid(row=11, column=1, padx=5, pady=5, sticky='w')
+lbl_option = Label(master=frm_form, text='Choose text option:')
+lbl_option.grid(row=10, column=0, padx=5, pady=5, sticky="w")
+rad_option = Radiobutton(master=frm_form,text='Without space', variable = var3, value=1)
+rad_option.grid(row=10, column=1, padx=5, pady=5, sticky='w')
+rad_option = Radiobutton(master=frm_form,text='Separated every 5 letters', variable = var3, value=2)
+rad_option.grid(row=11, column=1, padx=5, pady=5, sticky='w')
 
-btn_compute = Button(master=frm_form, text='Go!', width=10, command=compute)
+btn_compute = Button(master=frm_form, text='Go!', width=10, height=2, command=compute)
 btn_compute.grid(row=13, column=1, padx=5, pady=5, sticky='w')
 
 lbl_result = Label(master=frm_form, text='Result:')
-lbl_result_text = Label(master=frm_form, text='R')
+lbl_result_text = Label(master=frm_form, text='Click "Go!" to see magic')
 lbl_result.grid(row=14, column=0, padx=5, pady=5, sticky="w")
 lbl_result_text.grid(row=14, column=1, padx=5, pady=5, sticky="w")
 
+btn_copy = Button(master=frm_form, text='Copy result', width=10, command=copy)
+btn_copy.grid(row=15, column=1, padx=5, pady=5, sticky='w')
+
+btn_exit = Button(master=frm_form, text='Exit', width=5, command=qExit)
+btn_exit.grid(row=15, column=1, padx=5, pady=5, sticky='e')
 
 # Keeps window alive 
 window.mainloop()
