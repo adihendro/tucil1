@@ -37,6 +37,11 @@ def openFile():
     if f is not None: 
         file_content = f.read() 
 
+# Clear function
+def clear():
+    ent_text.delete(0,END)
+    ent_key.delete(0,END)
+
 # Copy function
 def copy():
     window.clipboard_clear()
@@ -66,8 +71,11 @@ ent_key = Entry(master=frm_form, width=30)
 lbl_key.grid(row=1, column=0, padx=5, pady=5, sticky='w')
 ent_key.grid(row=1, column=1, padx=5, pady=5)
 
-btn_open = Button(master=frm_form, text='Open file', width=10, command=openFile)
+btn_open = Button(master=frm_form, text='Open file', width=8, command=openFile)
 btn_open.grid(row=2, column=1, padx=5, pady=5, sticky='w')
+
+btn_clear = Button(master=frm_form, text='Clear', width=5, command=clear)
+btn_clear.grid(row=2, column=1, padx=5, pady=5)
 
 var1 = StringVar()
 var2 = StringVar()
