@@ -11,20 +11,20 @@ def clearText(text):
 
 def extendKey(text, key):
     key = list(key)
-    for i in range (len(text)-len(key)):
-        key.append(key[i%len(key)])
+    for i in range (len(text) - len(key)):
+        key.append(key[i % len(key)])
     return ''.join(key)
 
 def encVigenere(text, key):
     cipher = []
     for i in range (len(text)):
-        cipher.append(chr((ord(text[i]) + ord(key[i]))%26 + ORDINAL_A))
+        cipher.append(chr((ord(text[i]) + ord(key[i])) %26 + ORDINAL_A))
     return ''.join(cipher)
 
 def decVigenere(cipher, key):
     text = []
     for i in range (len(cipher)):
-        text.append(chr((ord(cipher[i]) - ord(key[i]))%26 + ORDINAL_A))
+        text.append(chr((ord(cipher[i]) - ord(key[i])) %26 + ORDINAL_A))
     return ''.join(text)
 
 '''
@@ -49,26 +49,22 @@ print(decVigenere(cipher, extendKey(clearedText, clearedKey)))
 def encExtendedVigenere(text, key):
     cipher = []
     for i in range (len(text)):
-        cipher.append(text[i] + ord(str(key[i]))%256)
+        cipher.append((text[i] + ord(str(key[i]))) %256)
     return cipher
 
 def decExtendedVigenere(cipher, key):
     text = []
     for i in range (len(cipher)):
-        text.append(chr((cipher[i] - ord(key[i]))%256))
-    return ''.join(text)
+        text.append((cipher[i] - ord(str(key[i]))) %256)
+    return text
 
 
 def openFile(file):
     with open(file, 'rb') as f:
         return f.read()
 
-# def writeBinaryFile(text, filename):
-#     with open(filename, 'wb') as f:
-#         f.write(text)
-
-def writeFile(text, filename, mode):
-    with open(filename, mode) as f:
+def writeFile(text, filename):
+    with open(filename, 'wb') as f:
         f.write(text)
 
 # Open file in read only and binary mode
@@ -79,9 +75,8 @@ key = input().upper()
 clearedKey = clearText(key)
 
 cipher = encExtendedVigenere(text, extendKey(text, clearedKey))
-
-writeFile(bytearray(cipher), 'ciphered.txt', 'wb')
+writeFile(bytearray(cipher), 'ciphered.txt')
 
 cipher = openFile('ciphered.txt')
 text = decExtendedVigenere(cipher, extendKey(text, clearedKey))
-writeFile(text, 'finished.txt', 'w')
+writeFile(bytearray(text), 'finished.docx')
