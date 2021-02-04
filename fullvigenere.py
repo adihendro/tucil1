@@ -40,4 +40,13 @@ def decFullVigenere(cipher, key):
         text.append(LETTERS[n])
     return ''.join(text)
 
+def fullVigenere(mode,text,key):
+    clearedText = clearText(text)
+    clearedKey = clearText(key)
+    if(mode=='1'): # Encryption
+        cipher = encFullVigenere(clearedText, extendKey(clearedText, clearedKey))
+    else: # Decryption
+        cipher = decFullVigenere(text, extendKey(clearedText, clearedKey))
+    return cipher
+
 matrix = createMatrix()

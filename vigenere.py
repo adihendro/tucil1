@@ -42,7 +42,14 @@ def mainVigenere(mode, text, key):
         cipher = decVigenere(text, extendKey(clearedText, clearedKey))
     return cipher
 
-
+def autoVigenere(mode,text,key):
+    clearedText = clearText(text)
+    clearedKey = clearText(key)
+    if(mode=='1'): # Encryption
+        cipher = encVigenere(clearedText, autoKey(clearedText, clearedKey))
+    else: # Decryption
+        cipher = decAutoVigenere(clearedText,key)
+    return cipher
 
 # Auto-Key Vigenere Cipher
 
@@ -94,6 +101,16 @@ def openFile(file):
 def writeFile(text, filename):
     with open(filename, 'wb') as f:
         f.write(text)
+
+def extVigenere(mode,text,key):
+    clearedKey = clearText(key)
+    if(mode=='1'): # Encryption
+        cipher = encExtendedVigenere(text, extendKey(text, clearedKey))
+        writeFile(bytearray(cipher), 'cipheredtext.txt')
+    else: # Decryption
+        cipher = decExtendedVigenere(text, extendKey(text, clearedKey))
+        writeFile(bytearray(text), 'finished.docx')
+    return cipher
 
 # Open file in read only and binary mode
 '''

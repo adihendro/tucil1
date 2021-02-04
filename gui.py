@@ -1,6 +1,8 @@
 # GUI
 
 from vigenere import *
+from fullvigenere import *
+from playfair import *
 
 from tkinter import *
 from tkinter import messagebox
@@ -20,15 +22,36 @@ def compute():
     key = ent_key.get().upper()
     # Get mode
     mode = var1.get()
+<<<<<<< Updated upstream
+    # Get encryption type
+=======
+>>>>>>> Stashed changes
     # Get encryption type
     encType = var2.get()
-    if(encType=='1'): # Standard Vigenere Cipher
-        lbl_result_text['text'] = mainVigenere(mode,text,key)
-    # elif(encType==2): # Full Vigenere Cipher
-    # elif(encType==3): # Auto-key Vigenere Cipher
-    # elif(encType==4): # Extended Vigenere Cipher
-    # elif(encType==5): # Playfair Cipher
-    
+    space = var3.get()
+    if (space == '2'):
+        if(encType=='1'): # Standard Vigenere Cipher
+            lbl_result_text['text'] = addspace(mainVigenere(mode,text,key))
+        elif(encType=='2'): # Full Vigenere Cipher
+            lbl_result_text['text'] = addspace(fullVigenere(mode,text,key))
+        elif(encType=='3'): # Auto-key Vigenere Cipher
+            lbl_result_text['text'] = addspace(autoVigenere(mode,text,key))
+        elif(encType=='4'): # Extended Vigenere Cipher
+            lbl_result_text['text'] = extVigenere(mode,files,key)
+        elif(encType=='5'): # Playfair Cipher
+            lbl_result_text['text'] = addspace(playfairVigenere(mode,text,key))
+    elif (space == '1'):
+        if(encType=='1'): # Standard Vigenere Cipher
+            lbl_result_text['text'] = mainVigenere(mode,text,key)
+        elif(encType=='2'): # Full Vigenere Cipher
+            lbl_result_text['text'] = fullVigenere(mode,text,key)
+        elif(encType=='3'): # Auto-key Vigenere Cipher
+            lbl_result_text['text'] = autoVigenere(mode,text,key)
+        elif(encType=='4'): # Extended Vigenere Cipher
+            lbl_result_text['text'] = extVigenere(mode,files,key)
+        elif(encType=='5'): # Playfair Cipher
+            lbl_result_text['text'] = playfairVigenere(mode,text,key)
+    content = ''
 
 file_content = ''
 
@@ -37,6 +60,12 @@ def openFile():
     if f is not None: 
         file_content = f.read() 
 
+<<<<<<< Updated upstream
+def addspace(a):
+    return ' '.join([a[i:i + 5] for i in range(0, len(a), 5)])
+
+=======
+>>>>>>> Stashed changes
 # Clear function
 def clear():
     ent_text.delete(0,END)
