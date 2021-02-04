@@ -22,10 +22,6 @@ def compute():
     key = ent_key.get().upper()
     # Get mode
     mode = var1.get()
-<<<<<<< Updated upstream
-    # Get encryption type
-=======
->>>>>>> Stashed changes
     # Get encryption type
     encType = var2.get()
     space = var3.get()
@@ -60,12 +56,9 @@ def openFile():
     if f is not None: 
         file_content = f.read() 
 
-<<<<<<< Updated upstream
 def addspace(a):
     return ' '.join([a[i:i + 5] for i in range(0, len(a), 5)])
 
-=======
->>>>>>> Stashed changes
 # Clear function
 def clear():
     ent_text.delete(0,END)
@@ -79,7 +72,7 @@ def copy():
 # Exit function 
 def qExit(): 
     window.destroy() 
-    
+
 
 # Main window
 window = Tk()
