@@ -33,7 +33,7 @@ def compute():
         elif(encType=='3'): # Auto-key Vigenere Cipher
             lbl_result_text['text'] = addspace(autoVigenere(mode,text,key))
         elif(encType=='4'): # Extended Vigenere Cipher
-            lbl_result_text['text'] = extVigenere(mode,files,key)
+            lbl_result_text['text'] = extVigenere(mode,text,key)
         elif(encType=='5'): # Playfair Cipher
             lbl_result_text['text'] = addspace(playfairVigenere(mode,text,key))
     elif (space == '1'):
@@ -44,7 +44,7 @@ def compute():
         elif(encType=='3'): # Auto-key Vigenere Cipher
             lbl_result_text['text'] = autoVigenere(mode,text,key)
         elif(encType=='4'): # Extended Vigenere Cipher
-            lbl_result_text['text'] = extVigenere(mode,files,key)
+            lbl_result_text['text'] = extVigenere(mode,text,key)
         elif(encType=='5'): # Playfair Cipher
             lbl_result_text['text'] = playfairVigenere(mode,text,key)
     content = ''
