@@ -27,23 +27,25 @@ def decVigenere(cipher, key):
         text.append(chr((ord(cipher[i]) - ord(key[i])) %26 + ORDINAL_A))
     return ''.join(text)
 
-'''
+
 # Input text
 text = input().upper() 
 # Input key
-key = input()
+key = input().upper()
 
 clearedText = clearText(text)
+clearedKey = clearText(key)
 
 # print(clearedText)
-print(extendKey(clearedText, key))
+print(extendKey(clearedText, clearedKey))
 
-cipher = encVigenere(clearedText, extendKey(clearedText, key))
+cipher = encVigenere(clearedText, extendKey(clearedText, clearedKey))
 print(cipher)
-print(decVigenere(cipher, extendKey(clearedText, key)))
+print(decVigenere(cipher, extendKey(clearedText, clearedKey)))
+
+
+
 '''
-
-
 # Extended Vigenere Cipher
 
 def encExtendedVigenere(text, key):
@@ -78,3 +80,4 @@ writeFile(bytearray(cipher), 'ciphered.txt')
 cipher = openFile('ciphered.txt')
 text = decExtendedVigenere(cipher, extendKey(text, key))
 writeFile(bytearray(text), 'finished.docx')
+'''
