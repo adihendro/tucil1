@@ -31,6 +31,7 @@ def decAffine(cipher, m, b):
     return ''.join(text)
 
 
+'''
 # Input text
 text = input().upper() 
 # Input bm key
@@ -44,3 +45,4 @@ cipher = encAffine(clearedText, m, b)
 print(cipher)
 
 print(decAffine(cipher, m, b))
+'''

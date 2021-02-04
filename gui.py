@@ -3,6 +3,7 @@
 from vigenere import *
 from fullvigenere import *
 from playfair import *
+from affine import *
 
 from tkinter import *
 from tkinter import messagebox
@@ -36,6 +37,8 @@ def compute():
             lbl_result_text['text'] = extVigenere(mode,files,key)
         elif(encType=='5'): # Playfair Cipher
             lbl_result_text['text'] = addspace(playfairVigenere(mode,text,key))
+        elif(encType=='6'): # Affine Cipher
+            lbl_result_text['text'] = addspace(affine(mode,text,key))
     elif (space == '1'):
         if(encType=='1'): # Standard Vigenere Cipher
             lbl_result_text['text'] = mainVigenere(mode,text,key)
@@ -47,6 +50,8 @@ def compute():
             lbl_result_text['text'] = extVigenere(mode,files,key)
         elif(encType=='5'): # Playfair Cipher
             lbl_result_text['text'] = playfairVigenere(mode,text,key)
+        elif(encType=='6'): # Affine Cipher
+            lbl_result_text['text'] = affine(mode,text,key)
     content = ''
 
 file_content = ''
@@ -131,14 +136,16 @@ rad_type = Radiobutton(master=frm_form,text='Extended Vigenere Cipher', variable
 rad_type.grid(row=8, column=1, padx=5, pady=5, sticky='w')
 rad_type = Radiobutton(master=frm_form,text='Playfair Cipher', variable = var2, value=5)
 rad_type.grid(row=9, column=1, padx=5, pady=5, sticky='w')
+rad_type = Radiobutton(master=frm_form,text='Affine Cipher', variable = var2, value=6)
+rad_type.grid(row=10, column=1, padx=5, pady=5, sticky='w')
 
 # Print option
 lbl_option = Label(master=frm_form, text='Choose print option:')
-lbl_option.grid(row=10, column=0, padx=5, pady=5, sticky="w")
+lbl_option.grid(row=11, column=0, padx=5, pady=5, sticky="w")
 rad_option = Radiobutton(master=frm_form,text='Without space', variable = var3, value=1)
-rad_option.grid(row=10, column=1, padx=5, pady=5, sticky='w')
-rad_option = Radiobutton(master=frm_form,text='Separated every 5 letters', variable = var3, value=2)
 rad_option.grid(row=11, column=1, padx=5, pady=5, sticky='w')
+rad_option = Radiobutton(master=frm_form,text='Separated every 5 letters', variable = var3, value=2)
+rad_option.grid(row=12, column=1, padx=5, pady=5, sticky='w')
 
 btn_compute = Button(master=frm_form, text='Go!', width=10, height=2, command=compute)
 btn_compute.grid(row=13, column=1, padx=5, pady=5, sticky='w')

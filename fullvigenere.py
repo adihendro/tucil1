@@ -46,7 +46,7 @@ def fullVigenere(mode,text,key):
     if(mode=='1'): # Encryption
         cipher = encFullVigenere(clearedText, extendKey(clearedText, clearedKey))
     else: # Decryption
-        cipher = decFullVigenere(text, extendKey(clearedText, clearedKey))
+        cipher = decFullVigenere(clearedText, extendKey(clearedText, clearedKey))
     return cipher
 
 matrix = createMatrix()
