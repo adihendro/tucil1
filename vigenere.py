@@ -33,11 +33,13 @@ def decVigenere(cipher, key):
         text.append(chr((ord(cipher[i]) - ord(key[i])) %26 + ORDINAL_A))
     return ''.join(text)
 
-def mainVigenere(text, key):
+def mainVigenere(mode, text, key):
     clearedText = clearText(text)
     clearedKey = clearText(key)
-    cipher = encVigenere(clearedText, extendKey(clearedText, clearedKey))
-    cipher = decVigenere(cipher, extendKey(clearedText, clearedKey))
+    if(mode==1): # Encryption
+        cipher = encVigenere(clearedText, extendKey(clearedText, clearedKey))
+    else: # Decryption
+        cipher = decVigenere(cipher, extendKey(clearedText, clearedKey))
     return cipher
 
 
