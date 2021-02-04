@@ -36,10 +36,10 @@ def decVigenere(cipher, key):
 def mainVigenere(mode, text, key):
     clearedText = clearText(text)
     clearedKey = clearText(key)
-    if(mode==1): # Encryption
+    if(mode=='1'): # Encryption
         cipher = encVigenere(clearedText, extendKey(clearedText, clearedKey))
     else: # Decryption
-        cipher = decVigenere(cipher, extendKey(clearedText, clearedKey))
+        cipher = decVigenere(text, extendKey(clearedText, clearedKey))
     return cipher
 
 
