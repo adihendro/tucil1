@@ -54,7 +54,7 @@ def generate_key(key):
     return table
 
 
-def encode5(key,text):
+def encPlayfair(key,text):
     table = generate_key(key)
     plaintext = cleaninput(text)
     enc = ""
@@ -74,7 +74,7 @@ def encode5(key,text):
             enc += table[row2*5+col1]
     return enc
 
-def decode5 (key, text):
+def decPlayfair(key, text):
      table = generate_key(key)
      hasil = ""
 
