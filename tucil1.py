@@ -8,6 +8,7 @@ import tkinter
 # import cipher
 from playfair import encPlayfair, decPlayfair
 from vigenere import *
+from fullvigenere import *
 from tkinter.filedialog import asksaveasfile 
   
 # creating root object 
@@ -111,80 +112,44 @@ txtService = Entry(f1, font = ('calibri', 16, 'bold'),
                          
 txtService.grid(row = 2, column = 3) 
   
-# Vigenère cipher 
-import base64 
-  
 
-# Extended Vigenere Cipher *** belum bener
-def encode4(key, text): 
-    enc = [] 
-      
-    for i in range(len(text)): 
-        key_c = key[i % len(key)] 
-        enc_c = chr((ord(text[i]) +
-                     ord(key_c)) % 256) 
-                       
-        enc.append(enc_c) 
-          
-    return base64.urlsafe_b64encode("".join(enc).encode()).decode() 
-
-# Playfair Cipher
-
-
-
-  
-# Function to decode 
-def decode4(key, enc): 
-    dec = [] 
-      
-    enc = base64.urlsafe_b64decode(enc).decode() 
-    for i in range(len(enc)): 
-        key_c = key[i % len(key)] 
-        dec_c = chr((256 + ord(enc[i]) -
-                           ord(key_c)) % 256) 
-                             
-        dec.append(dec_c) 
-    return "".join(dec) 
-  
 
 def addspace(a):
     return ' '.join([a[i:i + 5] for i in range(0, len(a), 5)])
 
 def Ref(): 
-    print("Message = ", (Msg)) 
   
     text = Msg.get()
     k = key.get()
     m = mode.get() 
     c = cip.get()
-    hasil = ''
-  
+
     if (m == 'e'): #encode
         if (c == 'a'):
-            #Result.set(addspace(encVigenere(text, (extendKey(clearText(text), clearText(key)))))) # standard vigenere
-            hasil = encVigenere(clearText(text), extendKey(clearText(text), clearText(k)))
-            Result.set(addspace(hasil))
-        #if (c == 'b'):
-            #Result.set(encode2(k,text)) # full key
+            Result.set(addspace(encVigenere(clearText(text), (extendKey(clearText(text), clearText(k)))))) # standard vigenere
+        if (c == 'b'):
+            clearedText = clearText(text)
+            clearedKey = clearText(k)
+            Result.set(addspace(encFullVigenere(clearedText, extendKey(clearedText, clearedKey))))        # full vigenere
         if (c == 'c'):
-            Result.set(addspace(encVigenere(k,text))) # autokey vigenere
+            Result.set(addspace(encVigenere(text, autoKey(text,k)))) # autokey vigenere
         if (c == 'd'):
-            Result.set(addspace(encExtendedVigenere(text, extendKey(text, k)))) # extended vigenere
+            Result.set(addspace(encExtendedVigenere(text, extendKey(text, clearText(k))))) # extended vigenere
         if (c == 'e'):
             Result.set(addspace(encPlayfair(k,text))) # playfair
     
     elif (m == 'd'):
         if (c == 'a'):
             Result.set(addspace(decVigenere(text, (extendKey(clearText(text), clearText(k))))))
-       # if (c == 'b'):
+        if (c == 'b'):
+            Result.set(addspace(decFullVigenere(clearText(text), extendKey(clearText(text), clearText(k)))))        # full vigenere
         
         #if (c == 'c'):
 
         if (c == 'd'):
-            Result.set(addspace(decExtendedVigenere(text, (extendKey(text, k))))) 
+            Result.set(addspace(decExtendedVigenere(text, (extendKey(text, clearedText(k)))))) 
         if (c == 'e'):
-            Result.set(addspace(decPlayfair(k,text)))
-        #else:
+            Result.set((decPlayfair(k,text)))
     
 def write_File (text_File):
     file = open("resultsave.txt", "a")

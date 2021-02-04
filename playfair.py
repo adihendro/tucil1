@@ -74,7 +74,7 @@ def encPlayfair(key,text):
             enc += table[row2*5+col1]
     return enc
 
-def decPlayfair(key, text):
+def decPlayfair(key,text):
      table = generate_key(key)
      hasil = ""
 
@@ -91,3 +91,4 @@ def decPlayfair(key, text):
         else:
             hasil += table[row1*5+col2]
             hasil += table[row2*5+col1]
+     return hasil

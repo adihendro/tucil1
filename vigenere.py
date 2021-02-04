@@ -32,22 +32,40 @@ def decVigenere(cipher, key):
     for i in range (len(cipher)):
         text.append(chr((ord(cipher[i]) - ord(key[i])) %26 + ORDINAL_A))
     return ''.join(text)
-'''
+
+
+def decAutoVigenere(cipher,key):
+    text = []
+    keyindex = []
+    for x in key:
+        keyindex.append(x)
+    for i in range (len(cipher)):
+        if (len(text)) != (len(keyindex)):
+            text.append(chr((ord(cipher[i]) - ord(keyindex[i])) %26 + ORDINAL_A))
+            keyindex.append(text[i])
+    return ''.join(text)
+
+'''   
+
+
 # Input text
 text = input().upper() 
 # Input key
-key = input()
+key = input().upper()
 
 clearedText = clearText(text)
 
 # print(clearedText)
-print(extendKey(clearedText, key))
+print(autoKey(clearedText, key))
 
-cipher = encVigenere(clearedText, extendKey(clearedText, key))
+cipher = encVigenere(clearText(text), (extendKey(clearText(text), clearText(key))))
+
 print(cipher)
-print(decVigenere(cipher, extendKey(clearedText, key)))
-# Extended Vigenere Cipher
+#print(decVigenere(cipher, key))
+
 '''
+# Extended Vigenere Cipher
+
 def encExtendedVigenere(text, key):
     cipher = []
     for i in range (len(text)):
