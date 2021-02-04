@@ -42,6 +42,10 @@ def copy():
     window.clipboard_clear()
     window.clipboard_append(lbl_result_text["text"])
 
+# Exit function 
+def qExit(): 
+    window.destroy() 
+
 
 window = Tk()
 window.title('Encrypt & Decrypt')
@@ -99,7 +103,7 @@ rad_option.grid(row=10, column=1, padx=5, pady=5, sticky='w')
 rad_option = Radiobutton(master=frm_form,text='Separated every 5 letters', variable = var3, value=2)
 rad_option.grid(row=11, column=1, padx=5, pady=5, sticky='w')
 
-btn_compute = Button(master=frm_form, text='Go!', width=10, command=compute)
+btn_compute = Button(master=frm_form, text='Go!', width=10, height=2, command=compute)
 btn_compute.grid(row=13, column=1, padx=5, pady=5, sticky='w')
 
 lbl_result = Label(master=frm_form, text='Result:')
@@ -109,6 +113,9 @@ lbl_result_text.grid(row=14, column=1, padx=5, pady=5, sticky="w")
 
 btn_copy = Button(master=frm_form, text='Copy result', width=10, command=copy)
 btn_copy.grid(row=15, column=1, padx=5, pady=5, sticky='w')
+
+btn_exit = Button(master=frm_form, text='Exit', width=5, command=qExit)
+btn_exit.grid(row=15, column=1, padx=5, pady=5, sticky='e')
 
 # Keeps window alive 
 window.mainloop()
