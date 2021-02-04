@@ -42,11 +42,11 @@ def decAutoVigenere(cipher,key):
     for i in range (len(cipher)):
         if (len(text)) != (len(keyindex)):
             text.append(chr((ord(cipher[i]) - ord(keyindex[i])) %26 + ORDINAL_A))
-            keyindex.append(text[i])
+            keyindex.append(chr((ord(cipher[i]) - ord(keyindex[i])) %26 + ORDINAL_A))
     return ''.join(text)
 
-'''   
 
+'''
 
 # Input text
 text = input().upper() 
@@ -58,7 +58,7 @@ clearedText = clearText(text)
 # print(clearedText)
 print(autoKey(clearedText, key))
 
-cipher = encVigenere(clearText(text), (extendKey(clearText(text), clearText(key))))
+cipher = decAutoVigenere(clearText(text), key)
 
 print(cipher)
 #print(decVigenere(cipher, key))
