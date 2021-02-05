@@ -16,30 +16,14 @@ def compute():
         return
 
     # Get text and key
-    if(file_content == ''):
-        text = ent_text.get().upper()
-    else:
-        text = file_content
+    text = ent_text.get().upper()
     key = ent_key.get().upper()
     # Get mode
     mode = var1.get()
     # Get encryption type
     encType = var2.get()
     space = var3.get()
-    if (space == '2'):
-        if(encType=='1'): # Standard Vigenere Cipher
-            lbl_result_text['text'] = addspace(mainVigenere(mode,text,key))
-        elif(encType=='2'): # Full Vigenere Cipher
-            lbl_result_text['text'] = addspace(fullVigenere(mode,text,key))
-        elif(encType=='3'): # Auto-key Vigenere Cipher
-            lbl_result_text['text'] = addspace(autoVigenere(mode,text,key))
-        elif(encType=='4'): # Extended Vigenere Cipher
-            lbl_result_text['text'] = extVigenere(mode,file_content,key)
-        elif(encType=='5'): # Playfair Cipher
-            lbl_result_text['text'] = addspace(playfairVigenere(mode,text,key))
-        elif(encType=='6'): # Affine Cipher
-            lbl_result_text['text'] = addspace(affine(mode,text,key))
-    elif (space == '1'):
+    if (space == '1'):
         if(encType=='1'): # Standard Vigenere Cipher
             lbl_result_text['text'] = mainVigenere(mode,text,key)
         elif(encType=='2'): # Full Vigenere Cipher
@@ -47,19 +31,32 @@ def compute():
         elif(encType=='3'): # Auto-key Vigenere Cipher
             lbl_result_text['text'] = autoVigenere(mode,text,key)
         elif(encType=='4'): # Extended Vigenere Cipher
-            lbl_result_text['text'] = extVigenere(mode,text,key)
+            extVigenere(mode,openFile('.temporary'),key)
+            lbl_result_text['text'] = getMessage(mode)
         elif(encType=='5'): # Playfair Cipher
-            lbl_result_text['text'] = playfairVigenere(mode,file_content,key)
+            lbl_result_text['text'] = mainPlayfair(mode,text,key)
         elif(encType=='6'): # Affine Cipher
             lbl_result_text['text'] = affine(mode,text,key)
-    content = ''
+    elif (space == '2'):
+        if(encType=='1'): # Standard Vigenere Cipher
+            lbl_result_text['text'] = addspace(mainVigenere(mode,text,key))
+        elif(encType=='2'): # Full Vigenere Cipher
+            lbl_result_text['text'] = addspace(fullVigenere(mode,text,key))
+        elif(encType=='3'): # Auto-key Vigenere Cipher
+            lbl_result_text['text'] = addspace(autoVigenere(mode,text,key))
+        elif(encType=='4'): # Extended Vigenere Cipher
+            extVigenere(mode,openFile('.temporary'),key)
+            lbl_result_text['text'] = getMessage(mode)
+        elif(encType=='5'): # Playfair Cipher
+            lbl_result_text['text'] = addspace(mainPlayfair(mode,text,key))
+        elif(encType=='6'): # Affine Cipher
+            lbl_result_text['text'] = addspace(affine(mode,text,key))
 
-file_content = ''
-
-def openFile(): 
+def askOpenFile(): 
     f = askopenfile(mode ='rb') 
     if f is not None: 
-        file_content = f.read() 
+        writeFile(f.read(),'.temporary')
+        messagebox.showinfo('Status', 'File successfully loaded!')
 
 def addspace(a):
     return ' '.join([a[i:i + 5] for i in range(0, len(a), 5)])
@@ -102,7 +99,7 @@ ent_key = Entry(master=frm_form, width=30)
 lbl_key.grid(row=1, column=0, padx=5, pady=5, sticky='w')
 ent_key.grid(row=1, column=1, padx=5, pady=5)
 
-btn_open = Button(master=frm_form, text='Open file', width=8, command=openFile)
+btn_open = Button(master=frm_form, text='Open file', width=8, command=askOpenFile)
 btn_open.grid(row=2, column=1, padx=5, pady=5, sticky='w')
 btn_clear = Button(master=frm_form, text='Clear', width=5, command=clear)
 btn_clear.grid(row=2, column=1, padx=5, pady=5)

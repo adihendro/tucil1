@@ -108,14 +108,20 @@ def writeFile(text, filename):
     with open(filename, 'wb') as f:
         f.write(text)
 
+def getMessage(mode):
+    if(mode=='1'):
+        return 'Successfully encrypted in "encrypted.jpg"'
+    else:
+        return 'Successfully decrypted in "decrypted.jpg"'
+
 def extVigenere(mode,text,key):
     clearedKey = clearText(key)
     if(mode=='1'): # Encryption
         cipher = encExtendedVigenere(text, extendKey(text, clearedKey))
-        writeFile(bytearray(cipher), 'cipheredtext.txt')
+        writeFile(bytearray(cipher), 'encrypted.jpg')
     else: # Decryption
         cipher = decExtendedVigenere(text, extendKey(text, clearedKey))
-        writeFile(bytearray(text), 'finished.txt')
+        writeFile(bytearray(cipher), 'decrypted.jpg')
     return cipher
 
 

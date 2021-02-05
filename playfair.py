@@ -105,7 +105,7 @@ def decPlayfair(key,text):
             hasil += table[row2*5+col1]
      return hasil
 
-def playfairVigenere(mode, text, key):
+def mainPlayfair(mode, text, key):
     if(mode=='1'): # Encryption
         cipher = encPlayfair(key,text)
     else: # Decryption
